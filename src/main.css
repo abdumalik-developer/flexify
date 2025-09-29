@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+.working-area{
+    background-image: radial-gradient(#2a2c30 .8px,oklch(21% 0.034 264.665) .8px);
+    background-size: 24px 24px;
+}
