@@ -29,7 +29,7 @@ const tags = reactive([
 
 function dragover(ev)
 {
-
+    
     const mouseY = ev.clientY;
 
     let insideElement = ( tagRefs.value.reduce( (result, current)=>{
@@ -63,7 +63,7 @@ function dragover(ev)
 
 </script>
 <template>
-    <div class="my-3.5 flex flex-col gap-2" @dragover="dragover">
+    <div class="my-3.5 flex flex-col gap-2" @dragover.prevent="dragover">
         <Tag ref="tagRefs" 
             v-for="tag in tags" 
             :key="tag.name" 
