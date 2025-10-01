@@ -23,7 +23,7 @@ function isActiveTab( alias )
             <SwitcherButton class="cursor-pointer" :class="{'bg-gray-600':isActiveTab(TAGS_TAB_ALIAS)}" @click="activeTab=TAGS_TAB_ALIAS">Tags</SwitcherButton>
             <SwitcherButton class="cursor-pointer" :class="{'bg-gray-600':isActiveTab(TUNING_TAB_ALIAS)}" @click="activeTab=TUNING_TAB_ALIAS">Tuning</SwitcherButton>
         </div>
-        <div class="my-3.5 flex flex-col gap-2">
+        <div>
             <TheTagsCollection v-if="isActiveTab( TAGS_TAB_ALIAS )"/>
             <TheTuningMachine v-if="isActiveTab( TUNING_TAB_ALIAS )" />
         </div>
