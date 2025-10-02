@@ -12,9 +12,8 @@ function drop(ev)
 }
 
 </script>
-
 <template>
-    <div class="bg-gray-900 w-4/5 working-area rounded-lg min-h-[70vh]" @drop="drop" @dragover.prevent>
+    <div class="min-h-20 border border-amber-400 border-dotted m-2" @drop.stop="drop" @dragover.prevent>
         <component :is="component" v-for="component in components"></component>
     </div>
 </template>

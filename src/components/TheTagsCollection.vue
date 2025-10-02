@@ -1,31 +1,11 @@
 <script setup>
 import { reactive, useTemplateRef } from 'vue';
 import Tag from '@/components/Tag.vue';
+import {tags} from '@/stores/ComponentStore.js';
 
 const tagRefs = useTemplateRef("tagRefs");
 
 let draggedTag = null;
-
-const tags = reactive([
-    {
-        name: 'Div'
-    },
-    {
-        name: 'Span'
-    },
-    {
-        name: 'H1'
-    },
-    {
-        name: 'H2'
-    },
-    {
-        name: 'H3'
-    },
-    {
-        name: 'P'
-    }
-]);
 
 function dragover(ev)
 {

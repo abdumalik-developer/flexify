@@ -17,6 +17,14 @@ defineExpose({
     tag: props.tag
 });
 
+function dragstart(ev)
+{
+
+    isDragged.value = true;
+
+    ev.dataTransfer.setData('tag', JSON.stringify(props.tag) );
+
+}
 
 </script>
 <template>
@@ -26,7 +34,7 @@ defineExpose({
                     'bg-gray-600': !isDragged
                     }" 
             draggable="true" 
-            @dragstart="isDragged = true"
+            @dragstart="dragstart"
             @dragend="isDragged = false"        
         >
          <div class="flex items-center">
