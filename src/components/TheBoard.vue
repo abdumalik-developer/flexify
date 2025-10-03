@@ -1,20 +1,12 @@
 <script setup>
-import { shallowReactive } from 'vue';
-import {tags} from '@/stores/ComponentStore.js';
+import useDrop from "@/composables/useDrop.js";
 
-let components = shallowReactive([]);
-
-
-function drop(ev)
-{    
-    const tag = tags.find((tag)=>tag.name === JSON.parse( ev.dataTransfer.getData('tag') ).name);
-    components.push( tag.component );
-}
+const {components, drop} = useDrop();
 
 </script>
 
 <template>
-    <div class="bg-gray-900 w-4/5 working-area rounded-lg min-h-[70vh]" @drop="drop" @dragover.prevent>
+    <div class="bg-gray-900 w-4/5 working-area rounded-lg min-h-[70vh]" @drop="drop($event)" @dragover.prevent>
         <component :is="component" v-for="component in components"></component>
     </div>
 </template>
