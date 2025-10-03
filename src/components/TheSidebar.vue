@@ -1,14 +1,9 @@
 <script setup>
-import { ref } from 'vue';
+import {  ref } from 'vue';
 import SwitcherButton from './SwitcherButton.vue';
 import TheTagsCollection from './TheTagsCollection.vue';
 import TheTuningMachine from './TheTuningMachine.vue';
-
-
-const TAGS_TAB_ALIAS = 'tags';
-const TUNING_TAB_ALIAS = 'tuning-machine';
-
-let activeTab = ref(TAGS_TAB_ALIAS);
+import { activeTab, TAGS_TAB_ALIAS, TUNING_TAB_ALIAS } from '@/stores/TuningStore.js';
 
 function isActiveTab( alias )
 {
@@ -42,7 +37,7 @@ function isActiveTab( alias )
                 leave-from-class="opacity-100"
                 leave-to-class="opacity-0"
             >
-                <TheTuningMachine v-if="isActiveTab( TUNING_TAB_ALIAS )" />
+                <TheTuningMachine v-if="isActiveTab( TUNING_TAB_ALIAS )"/>
             </Transition>
         </div>
     </div>
