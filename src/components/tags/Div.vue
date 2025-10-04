@@ -1,6 +1,6 @@
 <script setup>
 import useDrop from "@/composables/useDrop.js";
-import { getCurrentInstance, reactive, defineExpose, computed } from "vue";
+import { getCurrentInstance, reactive, computed } from "vue";
 import { highlightedComponent, setHightlighComponent } from "@/stores/TuningStore.js";
 import { ComputerDesktopIcon } from "@heroicons/vue/24/solid";
 
