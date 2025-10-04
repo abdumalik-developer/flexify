@@ -1,7 +1,8 @@
 <script setup>
 import useDrop from "@/composables/useDrop.js";
-import { getCurrentInstance } from "vue";
+import { getCurrentInstance, reactive, defineExpose, computed } from "vue";
 import { highlightedComponent, setHightlighComponent } from "@/stores/TuningStore.js";
+import { ComputerDesktopIcon } from "@heroicons/vue/24/solid";
 
 const {components, drop} = useDrop();
 
@@ -23,15 +24,22 @@ function toggleHighlight()
 
 
 
+const styleClasses = reactive({
+    'min-h-20 border border-amber-400 border-dotted p-2 cursor-pointer': true,
+    'bg-black/20': computed(()=> highlightedComponent.value !== instance),
+    'shadow-xl bg-amber-300/15': computed(()=> highlightedComponent.value === instance)
+});
+
+defineExpose({
+    styleClasses
+});
+
+
 
 </script>
 <template>
     <div 
-        :class="{
-            'min-h-20 border border-amber-400 border-dotted p-2 cursor-pointer': true,
-            'bg-black/20': highlightedComponent !== instance,
-            'shadow-xl bg-amber-300/15': highlightedComponent === instance,
-        }" 
+        :class="styleClasses" 
         @drop.stop="drop" 
         @dragover.prevent 
         @click.stop="toggleHighlight"
