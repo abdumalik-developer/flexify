@@ -1,15 +1,16 @@
-import Div from "@/components/tags/Div.vue";
-import Span from "@/components/tags/Span.vue";
+import UniversalTag from "@/components/tags/UniversalTag.vue";
 import { shallowReactive } from "vue";
 
 export let tags = shallowReactive([
     {
         name: 'Div',
-        component: Div
+        component: UniversalTag,
+        tagName: 'div'
     },
     {
         name: 'Span',
-        component: Span
+        component: UniversalTag,
+        tagName: 'span'
     },
     {
         name: 'H1'

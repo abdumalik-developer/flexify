@@ -28,14 +28,20 @@ export const useTuningStore = defineStore('tuning-store', {
             
             this.highlightedComponent = component
 
-            this.activeTab = this.highlightedComponent ? this.TUNING_TAB_ALIAS : this.TAGS_TAB_ALIAS;
+            this.setActiveTab( this.highlightedComponent ? this.TUNING_TAB_ALIAS : this.TAGS_TAB_ALIAS );
 
+        },
+        toggleHighlightedComponent( component )
+        {
+
+            this.setHightlighComponent( this.highlightedComponent === component ? null :  component )
+        
         },
         getComponentClasses( component )
         {
 
             const tuner = reactive({
-                display: 'flex'
+                display: 'block'
             });
 
             const defaultClasses = computed(()=>({
@@ -49,7 +55,6 @@ export const useTuningStore = defineStore('tuning-store', {
                 'classes' : defaultClasses,
                 'tuner': tuner
             };
-            
             if( !this.boardComponentClasses.get( component ) )
             {   
                 this.boardComponentClasses.set( component, defaultTuner );
