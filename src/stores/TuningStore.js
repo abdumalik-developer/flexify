@@ -37,13 +37,13 @@ export const useTuningStore = defineStore('tuning-store', {
             this.setHightlighComponent( this.highlightedComponent === component ? null :  component )
         
         },
-        getComponentClasses( component )
+        setDefaultTuner( component )
         {
 
             const tuner = reactive({
                 display: 'block'
             });
-
+            
             const defaultClasses = computed(()=>({
                 'min-h-20 border border-amber-400 border-dotted p-2 cursor-pointer': true,
                 'bg-black/20': this.highlightedComponent !== component,
@@ -55,12 +55,16 @@ export const useTuningStore = defineStore('tuning-store', {
                 'classes' : defaultClasses,
                 'tuner': tuner
             };
-            if( !this.boardComponentClasses.get( component ) )
-            {   
-                this.boardComponentClasses.set( component, defaultTuner );
-            }
 
-            return this.boardComponentClasses.get(component);
+            this.boardComponentClasses.set( component, defaultTuner );
+
+            return this.boardComponentClasses.get( component );
+
+        },
+        getTuner( component )
+        {
+
+            return this.boardComponentClasses.get(component) ?? this.setDefaultTuner( component );
 
         }        
     },
