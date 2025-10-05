@@ -41,14 +41,18 @@ export const useTuningStore = defineStore('tuning-store', {
         {
 
             const tuner = reactive({
-                display: 'block'
+                display: 'block',
+                minHeight: 'min-h-20',
+                width: 'w-auto'
             });
             
             const defaultClasses = computed(()=>({
-                'min-h-20 border border-amber-400 border-dotted p-2 cursor-pointer': true,
+                [tuner.minHeight]: true,
+                [tuner.display]: true,
+                [tuner.width]: true,
+                'border border-amber-400 border-dotted p-2 cursor-pointer': true,
                 'bg-black/20': this.highlightedComponent !== component,
                 'shadow-xl bg-amber-300/15': this.highlightedComponent === component,
-                [tuner.display]: true
             }));
 
             const defaultTuner = {

@@ -18,7 +18,7 @@ const props = defineProps({
     <component 
         :is="props.identity"
         :class="tuningStore.getTuner( instance ).classes" 
-        @drop.stop="drop" 
+        @drop.stop="drop($event)" 
         @dragover.prevent 
         @click.stop="tuningStore.toggleHighlightedComponent( instance )"
 
