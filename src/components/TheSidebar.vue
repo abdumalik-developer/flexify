@@ -3,20 +3,17 @@ import {  ref } from 'vue';
 import SwitcherButton from './SwitcherButton.vue';
 import TheTagsCollection from './TheTagsCollection.vue';
 import TheTuningMachine from './TheTuningMachine.vue';
-import { activeTab, TAGS_TAB_ALIAS, TUNING_TAB_ALIAS } from '@/stores/TuningStore.js';
+import { useTuningStore } from '@/stores/TuningStore.js';
 
-function isActiveTab( alias )
-{
-    return activeTab.value === alias;
-
-}
+const { TAGS_TAB_ALIAS, TUNING_TAB_ALIAS, setActiveTab } = useTuningStore();
+const tuningStore = useTuningStore();
 
 </script>
 <template>
     <div class="bg-gray-800 rounded-lg p-4">
         <div class="flex bg-gray-700 p-1 rounded-2xl text-white text-sm">
-            <SwitcherButton class="cursor-pointer" :class="{'bg-gray-600':isActiveTab(TAGS_TAB_ALIAS)}" @click="activeTab=TAGS_TAB_ALIAS">Tags</SwitcherButton>
-            <SwitcherButton class="cursor-pointer" :class="{'bg-gray-600':isActiveTab(TUNING_TAB_ALIAS)}" @click="activeTab=TUNING_TAB_ALIAS">Tuning</SwitcherButton>
+            <SwitcherButton class="cursor-pointer" :class="{'bg-gray-600':tuningStore.isTagsTabActive}" @click="setActiveTab(TAGS_TAB_ALIAS)">Tags</SwitcherButton>
+            <SwitcherButton class="cursor-pointer" :class="{'bg-gray-600':tuningStore.isTuningTabActive}" @click="setActiveTab(TUNING_TAB_ALIAS)">Tuning</SwitcherButton>
         </div>
         <div>
             <Transition
@@ -27,7 +24,7 @@ function isActiveTab( alias )
                 leave-to-class="opacity-0"
                 
             >
-                <TheTagsCollection v-if="isActiveTab( TAGS_TAB_ALIAS )"/>
+                <TheTagsCollection v-if="tuningStore.isTagsTabActive"/>
             </Transition>
             
            <Transition
@@ -37,7 +34,7 @@ function isActiveTab( alias )
                 leave-from-class="opacity-100"
                 leave-to-class="opacity-0"
             >
-                <TheTuningMachine v-if="isActiveTab( TUNING_TAB_ALIAS )"/>
+                <TheTuningMachine v-if="tuningStore.isTuningTabActive"/>
             </Transition>
         </div>
     </div>

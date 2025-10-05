@@ -1,12 +1,14 @@
 <script setup>
-import { boardComponentClasses, highlightedComponent } from '@/stores/TuningStore';
+import { useTuningStore } from '@/stores/TuningStore';
 import { ref, watch } from 'vue';
 import Display from './tuners/Display.vue';
 
 const display = ref('block');
 
+const tuningStore = useTuningStore();
+
 watch(display, function( newValue ){
-    boardComponentClasses.get(highlightedComponent.value).tuner.display = newValue;
+    tuningStore.boardComponentClasses.get(tuningStore.highlightedComponent).tuner.display = newValue;
 });
 
 

@@ -1,7 +1,9 @@
 <script setup>
 import useDrop from "@/composables/useDrop.js";
-import { getCurrentInstance, reactive, computed, ref, onMounted } from "vue";
-import { getComponentClasses, highlightedComponent, setHightlighComponent } from "@/stores/TuningStore.js";
+import { getCurrentInstance} from "vue";
+import { useTuningStore } from "@/stores/TuningStore.js";
+
+const tuningStore = useTuningStore();
 
 const {components, drop} = useDrop();
 
@@ -9,24 +11,15 @@ const instance = getCurrentInstance();
 
 function toggleHighlight()
 {
-    if( highlightedComponent.value === instance )
-    {
-        
-        setHightlighComponent( null );
+    
+    tuningStore.setHightlighComponent( tuningStore.highlightedComponent === instance ? null :  instance )
 
-    }else{
-
-        setHightlighComponent( instance );
-
-    }
 }
-
-const styleClasses = getComponentClasses(instance).classes;
 
 </script>
 <template>
     <div 
-        :class="styleClasses" 
+        :class="tuningStore.getComponentClasses(instance).classes" 
         @drop.stop="drop" 
         @dragover.prevent 
         @click.stop="toggleHighlight"

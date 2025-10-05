@@ -1,6 +1,5 @@
 <script setup>
 import useDrop from "@/composables/useDrop.js";
-import Div from "./tags/Div.vue";
 
 const {components, drop} = useDrop();
 

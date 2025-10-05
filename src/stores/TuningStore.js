@@ -1,46 +1,74 @@
+import { defineStore } from "pinia";
 import { computed, reactive, ref, shallowRef } from "vue";
 
-export let highlightedComponent = shallowRef(null);
+export const useTuningStore = defineStore('tuning-store', {
+    state(){
+        
+        const TAGS_TAB_ALIAS = 'tags';
+        const TUNING_TAB_ALIAS = 'tuning-machine';
 
-export const TAGS_TAB_ALIAS = 'tags';
-export const TUNING_TAB_ALIAS = 'tuning-machine';
+        return {
+            TAGS_TAB_ALIAS,
+            TUNING_TAB_ALIAS,
+            activeTab: TAGS_TAB_ALIAS,
+            highlightedComponent: shallowRef(null),
+            boardComponentClasses: new Map()
+        }
 
-export let activeTab = ref(TAGS_TAB_ALIAS);
+    },
+    actions:{
+        setActiveTab( value )
+        {
 
-export function setHightlighComponent( component ){
+            this.activeTab = value;
 
-    highlightedComponent.value = component
-    
-    activeTab.value = highlightedComponent.value ? TUNING_TAB_ALIAS : TAGS_TAB_ALIAS;
+        },
+        setHightlighComponent( component )
+        {
+            
+            this.highlightedComponent = component
 
-}
+            this.activeTab = this.highlightedComponent ? this.TUNING_TAB_ALIAS : this.TAGS_TAB_ALIAS;
 
-export let boardComponentClasses = new Map();
+        },
+        getComponentClasses( component )
+        {
 
-export function getComponentClasses( component )
-{
+            const tuner = reactive({
+                display: 'flex'
+            });
 
-    const tuner = reactive({
-        display: 'flex'
-    });
+            const defaultClasses = computed(()=>({
+                'min-h-20 border border-amber-400 border-dotted p-2 cursor-pointer': true,
+                'bg-black/20': this.highlightedComponent !== component,
+                'shadow-xl bg-amber-300/15': this.highlightedComponent === component,
+                [tuner.display]: true
+            }));
 
-    const defaultClasses = computed(()=>({
-        'min-h-20 border border-amber-400 border-dotted p-2 cursor-pointer': true,
-        'bg-black/20': highlightedComponent.value !== component,
-        'shadow-xl bg-amber-300/15': highlightedComponent.value === component,
-        [tuner.display]: true
-    }));
+            const defaultTuner = {
+                'classes' : defaultClasses,
+                'tuner': tuner
+            };
+            
+            if( !this.boardComponentClasses.get( component ) )
+            {   
+                this.boardComponentClasses.set( component, defaultTuner );
+            }
 
-    const defaultTuner = {
-        'classes' : defaultClasses,
-        'tuner': tuner
-    };
-    
-    if( !boardComponentClasses.get(component) )
-    {   
-        boardComponentClasses.set(component, defaultTuner);
+            return this.boardComponentClasses.get(component);
+
+        }        
+    },
+    getters: {
+
+        isTagsTabActive(){
+            return this.activeTab === this.TAGS_TAB_ALIAS;
+        },
+        
+        isTuningTabActive(){
+            return this.activeTab === this.TUNING_TAB_ALIAS;
+        }
+
     }
 
-    return boardComponentClasses.get(component);
-
-}
+});
