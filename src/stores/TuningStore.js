@@ -23,7 +23,7 @@ export const useTuningStore = defineStore('tuning-store', {
             this.activeTab = value;
 
         },
-        setHightlighComponent( component )
+        setHightlightedComponent( component )
         {
             
             this.highlightedComponent = component
@@ -31,10 +31,17 @@ export const useTuningStore = defineStore('tuning-store', {
             this.setActiveTab( this.highlightedComponent ? this.TUNING_TAB_ALIAS : this.TAGS_TAB_ALIAS );
 
         },
+        unsetHighlightedComponent(){
+
+            this.highlightedComponent = null;
+
+            this.setActiveTab( this.TAGS_TAB_ALIAS );
+
+        },
         toggleHighlightedComponent( component )
         {
 
-            this.setHightlighComponent( this.highlightedComponent === component ? null :  component )
+            this.setHightlightedComponent( this.highlightedComponent === component ? null :  component )
         
         },
         setDefaultTuner( component )
