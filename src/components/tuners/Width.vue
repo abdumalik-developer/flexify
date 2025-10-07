@@ -29,7 +29,7 @@
     <div class="flex justify-between">
         <span>Width</span>
         <select class="outline-0" v-model="width">
-            <option v-for="option in options" :value="option" class="bg-gray-600">{{ option }}</option>
+            <option v-for="option in options" :value="option" class="bg-gray-600 text-right">{{ option }}</option>
         </select>
     </div>
 </template>

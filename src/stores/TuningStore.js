@@ -30,6 +30,8 @@ export const useTuningStore = defineStore('tuning-store', {
 
             this.setActiveTab( this.highlightedComponent ? this.TUNING_TAB_ALIAS : this.TAGS_TAB_ALIAS );
 
+            this.boardComponentClasses.get( component ).tuner.backgroundColor='bg-blue-500/10'
+
         },
         unsetHighlightedComponent(){
 
@@ -50,16 +52,22 @@ export const useTuningStore = defineStore('tuning-store', {
             const tuner = reactive({
                 display: 'block',
                 minHeight: 'min-h-20',
-                width: 'w-auto'
+                width: 'w-auto',
+                backgroundColor:'bg-black/20'
             });
             
             const defaultClasses = computed(()=>({
                 [tuner.minHeight]: true,
                 [tuner.display]: true,
                 [tuner.width]: true,
-                'border border-amber-400 border-dotted p-2 cursor-pointer': true,
-                'bg-black/20': this.highlightedComponent !== component,
-                'shadow-xl bg-amber-300/15': this.highlightedComponent === component,
+                [tuner.backgroundColor]: true,
+                'border': true,
+                'border-amber-400': true,
+                'border-dotted': true,
+                'p-2': true,
+                'cursor-pointer': true,
+                'shadow-xl': this.highlightedComponent === component,
+                
             }));
 
             const defaultTuner = {
