@@ -31,19 +31,22 @@ export const useTuningStore = defineStore('tuning-store', {
             this.setActiveTab( this.highlightedComponent ? this.TUNING_TAB_ALIAS : this.TAGS_TAB_ALIAS );
 
             this.boardComponentClasses.get( component ).tuner.backgroundColor='bg-blue-500/10'
-
+            
         },
         unsetHighlightedComponent(){
 
+            this.boardComponentClasses.get( this.highlightedComponent ).tuner.backgroundColor=''
+            
             this.highlightedComponent = null;
 
             this.setActiveTab( this.TAGS_TAB_ALIAS );
-
+            
         },
         toggleHighlightedComponent( component )
         {
 
-            this.setHightlightedComponent( this.highlightedComponent === component ? null :  component )
+            this.highlightedComponent === component ? this.unsetHighlightedComponent() 
+                                                    : this.setHightlightedComponent( component )
         
         },
         setDefaultTuner( component )
